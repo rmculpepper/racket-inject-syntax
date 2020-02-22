@@ -13,12 +13,10 @@
        ;; computed definitions and requires work, for example.
        (define name (car (generate-temporaries '(begin/inject-syntax))))
        (define intdef (syntax-local-make-definition-context))
-       (syntax-local-bind-syntaxes (list name)
-                                   #'(call-with-values (lambda () . body) list)
-                                   intdef)
+       (syntax-local-bind-syntaxes (list name) #'(lambda () . body) intdef)
        (define results
          (let ([name* (internal-definition-context-introduce intdef name)])
-           (syntax-local-value name* #f intdef)))
+           (call-with-values (syntax-local-value name* #f intdef) list)))
        (cond [(and (pair? results) (null? (cdr results)))
               (define result (car results))
               (unless (syntax? result)

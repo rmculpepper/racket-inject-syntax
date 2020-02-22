@@ -1,7 +1,6 @@
 #lang racket/base
 (require (for-syntax racket/base))
-(provide begin/inject-syntax
-         expression/inject-syntax)
+(provide begin/inject-syntax)
 
 (define-syntax (begin/inject-syntax stx)
   (syntax-case stx ()
@@ -27,9 +26,3 @@
               (bad (format "result arity mismatch~a\n  expected: 1\n  received: ~s"
                            ";\n expected number of values not received"
                            (length results)))]))]))
-
-(define-syntax (expression/inject-syntax stx)
-  (syntax-case stx ()
-    [(_ . body)
-     (with-syntax ([e (syntax/loc stx (begin/inject-syntax . body))])
-       (syntax/loc stx (#%expression e)))]))

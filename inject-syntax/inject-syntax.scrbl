@@ -85,11 +85,10 @@ Any side-effects performed by the @racket[body]s occur only once, when
 the @racket[begin/inject-syntax] form is compiled. This is in contrast
 to @racket[begin-for-syntax], whose contents are also evaluated when
 the enclosing module is visited.
-}
 
-@defform[(expression/inject-syntax body ...+)]{
-
-Equivalent to @racket[(#%expression (begin/inject-syntax body ...))].
+If @racket[begin/inject-syntax] is used in an expression context, the
+resulting syntax object must be an expression form; otherwise, the
+macro expander will raise a syntax error.
 }
 
 

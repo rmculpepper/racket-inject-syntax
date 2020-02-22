@@ -66,6 +66,11 @@ contracts) based on compile-time configuration variables. For example:
 (unsafe-fx+ 1 2)
 ]
 
+Keep in mind that it is customary in Racket to do library
+configuration at run time via ordinary variables, parameters,
+etc. Prefer run-time mechanisms when possible. Use
+@racket[begin/inject-syntax] when compile-time concerns are involved,
+such as scoping and variations in module exports.
 
 @bold{Warning:} Code can be run on a different platform from the one
 it was compiled on. Don't use compile-time conditions to specialize
